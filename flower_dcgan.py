@@ -71,15 +71,18 @@ def Discriminator(image, reuse):
     
     with tf.variable_scope('Discriminator', reuse = reuse):
         alpha = 0.2
-        x = tf.layers.conv2d(image, 16, 5,                              kernel_initializer = tf.random_normal_initializer(stddev = 0.01),                             bias_initializer = tf.random_normal_initializer(stddev = 0.01), strides = 2, padding = 'same')
+        x = tf.layers.conv2d(image, 16, 5,kernel_initializer = tf.random_normal_initializer(stddev = 0.01),\
+                             bias_initializer = tf.random_normal_initializer(stddev = 0.01), strides = 2, padding = 'same')
         bn = tf.layers.batch_normalization(x, training = True)
         lrelu = tf.maximum(x*alpha, x) #LeakyRelu
         #48x48x16
-        layer1 = tf.layers.conv2d(lrelu, 32, 5,                  kernel_initializer = tf.random_normal_initializer(stddev = 0.01),                                   bias_initializer = tf.random_normal_initializer(stddev = 0.01), strides = 2, padding = 'same')
+        layer1 = tf.layers.conv2d(lrelu, 32, 5,kernel_initializer = tf.random_normal_initializer(stddev = 0.01),\
+                                  bias_initializer = tf.random_normal_initializer(stddev = 0.01), strides = 2, padding = 'same')
         bn1 = tf.layers.batch_normalization(layer1, training = True)
         lrelu1 = tf.maximum(bn1 * alpha, bn1)
         #24x24x32
-        layer2 = tf.layers.conv2d(lrelu1, 96, 5,                                   kernel_initializer = tf.random_normal_initializer(stddev = 0.01),                                   bias_initializer = tf.random_normal_initializer(stddev = 0.01), strides = 2,                                  padding = 'same')
+        layer2 = tf.layers.conv2d(lrelu1, 96, 5,kernel_initializer = tf.random_normal_initializer(stddev = 0.01),\
+                                  bias_initializer = tf.random_normal_initializer(stddev = 0.01), strides = 2,                                  padding = 'same')
         bn2 = tf.layers.batch_normalization(layer2, training = True)
         lrelu2 = tf.maximum(bn2 * alpha, bn2)
         #12x12x96
